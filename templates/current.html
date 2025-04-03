@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Visitors - Society Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Currently Inside</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="flash">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="GET" action="{{ url_for('current') }}" class="search-form">
+            <input type="text" name="search" value="{{ search_query }}" placeholder="Search by name or role">
+            <input type="submit" value="Search">
+        </form>
+        <p><a href="{{ url_for('current') }}">Clear</a></p>
+
+        {% if entries %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Check-In Time</th>
+            </tr>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry['name'] }}</td>
+                <td>{{ entry['role'] }}</td>
+                <td>{{ entry['check_in'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No one is currently inside{% if search_query %} matching "{{ search_query }}"{% endif %}.</p>
+        {% endif %}
+        <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+    </div>
+</body>
+
+</html>

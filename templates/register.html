@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Society Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <form method="POST" action="{{ url_for('register') }}">
+            <h2>Register</h2>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p class="flash">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="input-field">
+                <input type="text" name="username" required>
+                <label>Enter your username</label>
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" required>
+                <label>Enter your password</label>
+            </div>
+            <div class="input-field">
+                <input type="password" name="confirm_password" required>
+                <label>Confirm your password</label>
+            </div>
+            <button type="submit">Register</button>
+            <div class="register">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

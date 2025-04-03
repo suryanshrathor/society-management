@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Society Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Society Entry Management</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="flash">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% if session.logged_in %}
+        <p>Welcome, {{ session.username }}! <a href="{{ url_for('logout') }}">Logout</a></p>
+        <ul>
+            <li><a href="{{ url_for('check_in') }}">Check In</a></li>
+            <li><a href="{{ url_for('check_out') }}">Check Out</a></li>
+            <li><a href="{{ url_for('current') }}">View Current Visitors/Staff</a></li>
+        </ul>
+        {% else %}
+        <p>Please <a href="{{ url_for('login') }}">log in</a> or <a href="{{ url_for('register') }}">register</a> to
+            access the system.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

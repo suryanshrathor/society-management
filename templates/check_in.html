@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check In - Society Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <form method="POST" action="{{ url_for('check_in') }}">
+            <h2>Check In</h2>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p class="flash">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="input-field">
+                <input type="text" name="name" required>
+                <label>Enter name</label>
+            </div>
+            <div class="input-field">
+                <select name="role" required>
+                    <option value="" disabled selected hidden></option>
+                    <option value="guard">Security Guard</option>
+                    <option value="maid">Maid</option>
+                    <option value="helper">Helper</option>
+                    <option value="guest">Guest</option>
+                    <option value="delivery">Delivery</option>
+                </select>
+                <label>Select role</label>
+            </div>
+            <button type="submit">Check In</button>
+            <div class="register">
+                <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
